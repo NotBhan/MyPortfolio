@@ -1,0 +1,112 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-5 bg-transparent bg-opacity-75" data-animate style="min-height: 67vh;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <!-- Back button matching index.html style -->
+        <a href="{% url 'home' %}" class="btn btn-outline-light mb-4 animate-item">
+          <i class="fas fa-arrow-left me-2"></i>BACK TO HOME
+        </a>
+        
+        <!-- Project Card with identical styling to index.html cards -->
+        <div class="card bg-transparent border-light shadow-lg animate-item" style="backdrop-filter: blur(8px);">
+          {% if project.image %}
+          <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" 
+               style="height: 400px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1)">
+          {% endif %}
+          
+          <div class="card-body">
+            <h1 class="card-title display-4 text-primary mb-3">{{ project.title }}</h1>
+            
+            <!-- Technologies - matching skills section badges -->
+            {% if project.technologies.all %}
+            <div class="mb-4">
+              <div class="d-flex flex-wrap gap-2">
+                {% for tech in project.technologies.all %}
+                <span class="badge bg-primary bg-opacity-25 text-white">
+                  {{ tech.name }}
+                </span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+            
+            <!-- Project Description -->
+            <div class="card-text mb-4 text-white-50" style="line-height: 1.8;">
+              {{ project.long_description|linebreaksbr }}
+            </div>
+          </div>
+          
+          <!-- Footer matching index.html cards -->
+          <div class="card-footer bg-transparent border-light d-flex justify-content-between align-items-center">
+            <div class="text-muted small">
+              <i class="far fa-calendar me-1"></i> {{ project.created_at|date:"M Y" }}
+              {% if project.updated_at %}
+              <span class="mx-2">•</span>
+              <i class="fas fa-sync-alt me-1"></i> {{ project.updated_at|date:"M Y" }}
+              {% endif %}
+            </div>
+            
+            <div>
+              {% if project.demo_url %}
+              <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm me-2" target="_blank">
+                <i class="fas fa-external-link-alt me-1"></i> DEMO
+              </a>
+              {% endif %}
+              {% if project.source_url %}
+              <a href="{{ project.source_url }}" class="btn btn-outline-light btn-sm" target="_blank">
+                <i class="fab fa-github me-1"></i> CODE
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Matching index.html animations */
+  [data-animate] .animate-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  [data-animate].animate-in .animate-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Matching index.html card hover effect */
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Badge styling identical to skills section */
+  .badge {
+    padding-bottom: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .badge::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--proficiency, 100%);
+    height: 2px;
+    background: var(--bs-outline-primary);
+  }
+</style>
+{% endblock %}

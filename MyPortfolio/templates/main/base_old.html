@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Your Name | Portfolio{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}" />
+    <style>
+        :root{
+            --bg-color: #00000096;
+        }
+      * {
+        scroll-behavior: smooth;
+        scroll-snap-type: proximity;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            /* background-image: url("{% static 'main/img/bg-texture.webp' %}") no-repeat center center fixed; */
+            background-color: var(--bg-color);
+            backdrop-filter: blur(10px);
+            background: url(https://unsplash.com/photos/a-close-up-of-a-black-velvet-fabric-7GJgEhvEJaA) no-repeat center center fixed;
+            /* radial-gradient(ellipse at center, #020202a5 0%,#0c0c0c5b 50%,#0b0b0b83 51%,#020202a5 100%) */
+            ;
+            background-size: cover;
+            position: relative;
+      }
+      /* section div > * {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Add delay to each element 
+      section div > *:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      section div > *:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      section div > *:nth-child(3) {
+        animation-delay: 0.5s;
+      }
+      section div > *:nth-child(4) {
+        animation-delay: 0.7s;
+      } */
+
+      /* header {
+         
+        backdrop-filter: blur(2px);
+      } */
+      footer {
+        /* backdrop-filter: blur(2px); */
+        min-width: 100%;
+        padding: 0px;
+      }
+      @media screen and (max-width: 576px) {
+        main {
+          max-width: 90%;
+        }
+      }
+      @media (max-width: 768px) {
+        .small-none {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+
+  <body style="background: url(https://img.freepik.com/free-photo/black-concrete-textured-background_53876-63609.jpg);">
+    {% include 'main/navbar.html' %}
+    <div style="margin-top: 0rem;" id="home"></div>
+
+    <main class="mx-auto bg-transparent">
+      {% block content %} {% endblock %}
+    </main>
+
+    {% include 'main/footer.html' %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'main/js/main.js' %}"></script>
+  </body>
+</html>
