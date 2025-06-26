@@ -78,7 +78,7 @@
 
       .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 20px rgba(66, 66, 66, 0.3);
       }
 
       .btn {
@@ -145,6 +145,10 @@
         main {
           padding-top: 60px;
           padding-bottom: 60px;
+        }
+        .hero-section{
+          /* margin-top: 6rem; */
+          text-align: center;
         }
 
         .display-4 {
@@ -240,6 +244,108 @@
             behavior: "smooth",
           });
         });
+      });
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Calculate the correct position accounting for fixed header
+            const headerHeight = document.querySelector("header").offsetHeight;
+            const targetPosition =
+              targetElement.getBoundingClientRect().top +
+              window.pageYOffset -
+              headerHeight;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth",
+            });
+
+            // Update URL without jumping
+            if (history.pushState) {
+              history.pushState(null, null, targetId);
+            } else {
+              window.location.hash = targetId;
+            }
+          }
+        });
+      });
+      // Contact Form Handling
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactForm = document.getElementById("contactForm");
+        if (contactForm) {
+          contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const submitText = submitBtn.querySelector(".submit-text");
+            const spinner = submitBtn.querySelector(".spinner-border");
+
+            // Show loading state
+            submitText.classList.add("d-none");
+            spinner.classList.remove("d-none");
+            submitBtn.disabled = true;
+
+            fetch(form.action, {
+              method: "POST",
+              body: new FormData(form),
+              headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]")
+                  .value,
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  // Show success message
+                  const alert = document.createElement("div");
+                  alert.className = "alert alert-success mt-3 animate-item";
+                  alert.innerHTML = "Your message has been sent successfully!";
+                  form.parentNode.insertBefore(alert, form.nextSibling);
+                  form.reset();
+                  form.classList.remove("was-validated");
+
+                  // Scroll to show message
+                  alert.scrollIntoView({ behavior: "smooth" });
+                } else if (data.errors) {
+                  // Show validation errors
+                  Object.keys(data.errors).forEach((field) => {
+                    const input = form.querySelector(`[name="${field}"]`);
+                    const feedback = input.nextElementSibling;
+                    input.classList.add("is-invalid");
+                    feedback.textContent = data.errors[field][0];
+                  });
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              })
+              .finally(() => {
+                // Reset button state
+                submitText.classList.remove("d-none");
+                spinner.classList.add("d-none");
+                submitBtn.disabled = false;
+              });
+          });
+
+          // Bootstrap validation
+          contactForm.addEventListener("input", function (e) {
+            if (
+              e.target.tagName === "INPUT" ||
+              e.target.tagName === "TEXTAREA"
+            ) {
+              e.target.classList.remove("is-invalid");
+            }
+          });
+        }
       });
     </script>
   </body>

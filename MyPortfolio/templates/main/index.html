@@ -1,22 +1,33 @@
-{% extends 'main/base.html' %}
-
-{% block content %}
+{% extends 'main/base.html' %} {% block content %}
 
 <!-- Hero Section -->
-<section class="d-flex justify-content-center align-items-center hero-section" data-animate 
-         style="margin-top: -5rem; padding-top: 0;">
-  <div class="text-left px-4" style="margin-top: 0; padding-top: 0;">
-    <div class="display-4 mb-5 animate-item">HELLO, I AM <span class="text-primary">CHANDRABHAN</span>.</div>
-    
-    <div class="d-flex flex-column mb-5">
-      <span class="display-4 animate-item">WEB_DESIGNER<span class="text-primary">.</span></span>
-      <span class="display-4 my-1 animate-item">/</span>
-      <span class="display-4 animate-item">FRONT_END<span class="text-primary">.</span></span>
-      <span class="display-4 my-1 animate-item">/</span>
-      <span class="display-4 animate-item">BACK_END<span class="text-primary">.</span></span>
+<section
+  class="d-flex justify-content-center align-items-center hero-section"
+  data-animate
+  style="margin-top: -5rem; padding-top: 0"
+>
+  <div class="text-left px-4" style="margin-top: 0; padding-top: 0">
+    <div class="display-4 mb-5 animate-item">
+      HELLO, I AM <span class="text-primary">CHANDRABHAN</span>.
     </div>
-    
-    <a href="#projects" class="btn btn-primary px-md-5 py-md-2 animate-item">MY PROJECTS></a>
+
+    <div class="d-flex flex-column mb-5">
+      <span class="display-4 animate-item"
+        >WEB_DESIGNER<span class="text-primary">.</span></span
+      >
+      <span class="display-4 my-1 animate-item">/</span>
+      <span class="display-4 animate-item"
+        >FRONT_END<span class="text-primary">.</span></span
+      >
+      <span class="display-4 my-1 animate-item">/</span>
+      <span class="display-4 animate-item"
+        >BACK_END<span class="text-primary">.</span></span
+      >
+    </div>
+
+    <a href="#projects" class="btn btn-primary px-md-5 py-md-2 animate-item"
+      >MY PROJECTS></a
+    >
   </div>
   <div id="skills"></div>
 </section>
@@ -24,8 +35,10 @@
 <!-- Skills Section -->
 <section class="py-5" data-animate>
   <div class="container">
-    <h2 class="text-center display-4 mb-5 animate-item">SKILLS<span class="text-primary">.</span></h2>
-    
+    <h2 class="text-center display-4 mb-5 animate-item">
+      SKILLS<span class="text-primary">.</span>
+    </h2>
+
     {% if skill_categories %}
     <div class="row g-4">
       {% for category in skill_categories %}
@@ -33,8 +46,8 @@
         <div class="card h-100 bg-transparent">
           <div class="card-body">
             <h3 class="card-title text-primary mb-3">
-              {% if category.icon %}<i class="fas {{ category.icon }} me-2"></i>{% endif %}
-              {{ category.name }}
+              {% if category.icon %}<i class="fas {{ category.icon }} me-2"></i
+              >{% endif %} {{ category.name }}
             </h3>
             <div class="d-flex flex-wrap gap-2 mt-4">
               {% for skill in category.skills.all %}
@@ -60,34 +73,52 @@
 <!-- Projects Section -->
 <section class="py-5" data-animate>
   <div class="container">
-    <h2 class="text-center display-4 mb-5 animate-item">PROJECTS<span class="text-primary">.</span></h2>
-    
+    <h2 class="text-center display-4 mb-5 animate-item">
+      PROJECTS<span class="text-primary">.</span>
+    </h2>
+
     {% if featured_projects %}
     <div class="row g-4">
       {% for project in featured_projects %}
       <div class="col-md-6 col-lg-4 animate-item">
         <div class="card h-100 bg-transparent">
           {% if project.image %}
-          <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+          <img
+            src="{{ project.image.url }}"
+            class="card-img-top"
+            alt="{{ project.title }}"
+            style="height: 200px; object-fit: cover"
+          />
           {% endif %}
           <div class="card-body d-flex flex-column">
             <h3 class="card-title text-primary mb-3">{{ project.title }}</h3>
-            <p class="card-text">{{ project.short_description|default:"No description available" }}</p>
+            <p class="card-text">
+              {{ project.short_description|default:"No description available" }}
+            </p>
             <div class="mt-auto">
               <div class="d-flex flex-wrap gap-2 mb-4">
                 {% for tech in project.technologies.all|slice:":5" %}
-                <span class="badge bg-primary bg-opacity-25">{{ tech.name }}</span>
+                <span class="badge bg-primary bg-opacity-25"
+                  >{{ tech.name }}</span
+                >
                 {% empty %}
                 <span class="badge bg-secondary">No technologies listed</span>
                 {% endfor %}
               </div>
               <div class="d-flex gap-2">
                 {% if project.demo_url %}
-                <a href="{{ project.demo_url }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                <a
+                  href="{{ project.demo_url }}"
+                  class="btn btn-outline-primary btn-sm"
+                  target="_blank"
+                >
                   <i class="fas fa-external-link-alt me-1"></i> Demo
                 </a>
                 {% endif %}
-                <a href="{{ project.get_absolute_url }}" class="btn btn-primary btn-sm">
+                <a
+                  href="{{ project.get_absolute_url }}"
+                  class="btn btn-primary btn-sm"
+                >
                   <i class="fas fa-info-circle me-1"></i> Details
                 </a>
               </div>
@@ -98,28 +129,153 @@
       {% endfor %}
     </div>
     {% else %}
-    <div class="alert alert-warning text-center">No featured projects found</div>
+    <div class="alert alert-warning text-center">
+      No featured projects found
+    </div>
     {% endif %}
   </div>
+  <div id="contact"></div>
 </section>
 
-
+<!-- Contact Section -->
+<section class="py-5" data-animate>
+  <div class="container ">
+    <h2 class="text-center display-4 mb-5 animate-item">CONTACT<span class="text-primary">.</span></h2>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-8 animate-item">
+        <div class="card bg-transparent border-light form-box">
+          <div class="card-body">
+            <form id="contactForm" class="needs-validation " novalidate>
+              <div class="row g-3">
+                <div class="col-md-6 fw-semibold">
+                  <label for="name" class="form-label text-white-50">NAME</label>
+                  <input type="text" class="form-control bg-black text-white border-light" id="name" placeholder="YOUR NAME" required>
+                  <div class="invalid-feedback">Please provide your name.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label text-white-50">EMAIL</label>
+                  <input type="email" class="form-control bg-black text-white border-light" id="email" placeholder="youraddress@domain.com" required>
+                  <div class="invalid-feedback">Please provide a valid email.</div>
+                </div>
+                <div class="col-12">
+                  <label for="subject" class="form-label text-white-50">SUBJECT</label>
+                  <input type="text" class="form-control bg-black text-white border-light" id="subject" placeholder="YOUR TOPIC" required>
+                  <div class="invalid-feedback">Please provide a subject.</div>
+                </div>
+                <div class="col-12">
+                  <label for="message" class="form-label text-white-50">MESSAGE</label>
+                  <textarea class="form-control bg-black text-white border-light" id="message" rows="5" placeholder="YOUR MESSAGE" required></textarea>
+                  <div class="invalid-feedback">Please provide a message.</div>
+                </div>
+                <div class="col-12 text-center mt-4">
+                  <button type="submit" class="btn btn-primary px-5 py-2">
+                    SEND MESSAGE
+                  </button>
+                </div>
+              </div>
+            </form>
+            
+            <div class="mt-5 pt-4 text-center">
+              <h4 class="text-primary mb-4">CONNECT WITH ME</h4>
+              <div class="d-flex justify-content-center gap-4">
+                <a href="mailto:chandrabhan.persoanl.09@gmail.com" class="text-white fs-3" target="_blank">
+                  <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/chandrabhan-mahato-49622a264?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-white fs-3" target="_blank">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.github.com/NotBhan" class="text-white fs-3" target="_blank">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <style>
   .skill-badge {
     padding-bottom: 3px;
     overflow: hidden;
   }
-  
+
   .card {
-    
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(19, 19, 19, 0.112);
+  }
+   /* Contact Form Specific Styles */
+  #contactForm .form-control {
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+  
+  #contactForm .form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    background-color: rgba(13, 17, 23, 0.9);
+  }
+  
+  #contact .card {
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  #contactForm .is-invalid {
+    border-color: #dc3545 !important;
+  }
+
+  #contactForm .is-invalid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+  }
+
+  #contactForm .invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875em;
+  }
+  .form-box:hover{
+    box-shadow: 0 10px 20px rgba(19, 19, 19, 0.112);
   }
 </style>
+
+<script>
+
+// Client-side form validation only
+document.addEventListener("DOMContentLoaded", function() {
+    const contactForm = document.getElementById("contactForm");
+    if (contactForm) {
+        contactForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+            
+            // Form is valid - show success message
+            alert("Thank you for your message! (Note: This is a static form - no data is sent)");
+            this.reset();
+            this.classList.remove('was-validated');
+        });
+        
+        // Clear validation on input
+        contactForm.addEventListener("input", function(e) {
+            if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+                e.target.classList.remove("is-invalid");
+            }
+        });
+    }
+});
+
+</script>
 
 {% endblock %}

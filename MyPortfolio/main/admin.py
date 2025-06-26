@@ -3,6 +3,7 @@ from .models import SkillCategory, Skill, Project
 from django import forms
 from django.db import models
 
+
 class SkillInline(admin.TabularInline):
     model = Skill
     extra = 1
@@ -53,4 +54,6 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
     )
 
+
+    
 admin.site.register(Project, ProjectAdmin)
