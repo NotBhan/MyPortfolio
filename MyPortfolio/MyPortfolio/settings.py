@@ -26,9 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
+DEBUG = False #True for development
+
+ALLOWED_HOSTS = ["NotBhan.pythonanywhere.com"] #blank for development
 
 
 # Application definition
